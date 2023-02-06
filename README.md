@@ -12,16 +12,17 @@ pip install elevenlabs
 Here's an example of how you can use elevenlabs to retrieve data from the API:
 
 ```
-import elevenlabs
+from elevenlabs import ElevenLabs
 
-# create a client
-client = elevenlabs.Client(api_key='your_api_key')
+eleven = ElevenLabs(
+    api_key
+)
 
-# retrieve data
-data = client.get('/data')
-print(data)
+voice = eleven.voices.list[0]
+audio_file = voice.generate("Hey buddy!")
+
 ```
 
-For more advanced usage, refer to the (currently non-existant!) documentation and the API reference.
+See example.py for more. For more advanced usage, refer to the (currently non-existent!) documentation and the API reference.
 
 See https://api.elevenlabs.io/docs for details on the official documentation.
