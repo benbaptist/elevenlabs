@@ -1,5 +1,5 @@
 # elevenlabs #
-elevenlabs is a Python library that provides an easy-to-use interface for elevenlabs.io' API. With this library, you can easily integrate with the API to generate voices.
+elevenlabs is an unofficial Python library that provides an easy-to-use interface for elevenlabs.io' API. With this library, you can easily integrate with the API to generate voices.
 
 # Installation #
 To install elevenlabs, run:
