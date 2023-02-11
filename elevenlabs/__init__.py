@@ -41,7 +41,10 @@ class ElevenLabs:
 
         if request.status_code != 200:
             # TODO: throw a proper exception here, add more specific handling
-            raise Exception("%s: %s" % (
+
+            print(request.content)
+            
+            raise Exception("%s" % (
                 request.status_code
             ))
 
