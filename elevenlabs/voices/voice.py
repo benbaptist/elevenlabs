@@ -34,7 +34,7 @@ class Voice:
     def generate(self, text):
         request = self._request(
             "POST",
-            "text-to-speech/VR6AewLTigWG4xSOukaG",
+            "text-to-speech/%s" % self.id,
             {
                 "text": text
             }
