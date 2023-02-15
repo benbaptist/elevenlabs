@@ -5,7 +5,7 @@ elevenlabs is an unofficial Python library that provides an easy-to-use interfac
 To install elevenlabs, run:
 
 ```
-pip install .
+pip install elevenlabs
 ```
 
 # Basic Usage #
