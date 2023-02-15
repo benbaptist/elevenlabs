@@ -31,12 +31,25 @@ class Voice:
 
         return AudioFile(request)
 
-    def generate(self, text):
+    @property
+    def settings(self):
+        request = self._request(
+            "GET",
+            "voices/%s/settings" % self.id
+        )
+
+        return request.json()
+
+    def generate(self, text, voice_settings=None):
+        if not voice_settings:
+            voice_settings = self.settings
+
         request = self._request(
             "POST",
             "text-to-speech/%s" % self.id,
             {
-                "text": text
+                "text": text,
+                "voice_settings": voice_settings
             }
         )
 

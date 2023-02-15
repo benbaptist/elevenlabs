@@ -22,6 +22,7 @@ if __name__ == "__main__":
         os.mkdir("output")
 
     print("Fetching voices...")
+
     voice = None
     while not voice:
         for i, _voice in enumerate(el.voices.list):
@@ -31,18 +32,23 @@ if __name__ == "__main__":
 
         try:
             voice_index = int(voice_index)
-        except ValueError:
-            print("Invalid input '%s' - please enter a number as listed above" % voice_index)
-            continue
-
-        try:
             voice = el.voices.list[voice_index]
+        except ValueError:
+            print("Invalid selection '%s' - must be a number." % voice_index)
         except IndexError:
             print("Invalid selection '%s'." % voice_index)
 
+    message = input("Write some text for your voice to say: ")
 
-    print("Generating MP3 from text...")
+    voice_settings = voice.settings
+
+    for setting in voice_settings:
+        value = voice_settings[setting]
+
+        print("- %s = %s" % (setting, value))
+
+    print("Generating TTS...")
 
     voice \
-        .generate("Hey there. My name is Python and I'm a great little snake.") \
+        .generate(message, voice_settings=voice_settings) \
         .save("output/%s_%s" % (voice.name, time.time()))
