@@ -10,7 +10,7 @@ This example does not work without creating a config.py
 containing the variable 'api_key', which can be retrieved on
 the 'Profile' tab on elevenlabs.io.
 
-See https://api.elevenlabs.io/docs#/ for details.
+See https://api.elevenlabs.io/docs for details.
 """
 
 if __name__ == "__main__":
@@ -40,6 +40,7 @@ if __name__ == "__main__":
 
     message = input("Write some text for your voice to say: ")
 
+    # Print out the settings used to generate this voice
     voice_settings = voice.settings
 
     for setting in voice_settings:
