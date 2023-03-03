@@ -5,6 +5,9 @@ from config import api_key
 import os
 import time
 
+import argparse
+import sys
+
 """
 This example does not work without creating a config.py
 containing the variable 'api_key', which can be retrieved on
@@ -18,31 +21,91 @@ if __name__ == "__main__":
         api_key
     )
 
-    if not os.path.exists("output"):
-        os.mkdir("output")
+    parser = argparse.ArgumentParser(
+        prog = "elevenlabs example",
+        description = "An example of the elevenlabs library")
 
-    print("Fetching voices...")
+    parser.add_argument("-o", "--output",
+        help="Specify the output directory for the generated audio file",
+        default="output")
+    parser.add_argument("-t", "--text",
+        help="Text to convert to speech")
+    parser.add_argument("-v", "--voice",
+        help="Specify the name of a voice on your ElevenLabs account")
+    parser.add_argument("-l", "--voices",
+        help="List all voices assocaited with your ElevenLabs account",
+        action="store_true")
+    parser.add_argument("-s", "--setting",
+        help="Sets a voice setting. Use the format setting=value",
+        action="append")
 
-    voice = None
-    while not voice:
-        for i, _voice in enumerate(el.voices.list):
-            print("[%s] %s" % (i, _voice.name))
+    args = parser.parse_args()
 
-        voice_index = input("Pick the voice you'd like: ")
+    # If --voices is specified, list all the voices avaialbe
+    if args.voices:
+        print("Voices: ")
+        for voice in el.voices.list:
+            print("- %s" % voice.name)
 
-        try:
-            voice_index = int(voice_index)
-            voice = el.voices.list[voice_index]
-        except ValueError:
-            print("Invalid selection '%s' - must be a number." % voice_index)
-        except IndexError:
-            print("Invalid selection '%s'." % voice_index)
+        sys.exit(0)
 
-    message = input("Write some text for your voice to say: ")
+    # Create the output path, if it doesn't already exist
+    if not os.path.exists(args.output):
+        os.mkdir(args.output)
 
-    # Print out the settings used to generate this voice
+    # If --voice is specified, use that, or interactively ask for a voice
+    if args.voice:
+        voice = None
+
+        for _voice in el.voices.list:
+            if _voice.name.lower() == args.voice.lower():
+                voice = _voice
+                break
+
+        if not voice:
+            print("Could not find voice '%s'" % args.voice)
+            sys.exit(1)
+    else:
+        print("Fetching voices...")
+
+        voice = None
+        while not voice:
+            for i, _voice in enumerate(el.voices.list):
+                print("[%s] %s" % (i, _voice.name))
+
+            voice_index = input("Pick the voice you'd like: ")
+
+            try:
+                voice_index = int(voice_index)
+                voice = el.voices.list[voice_index]
+            except ValueError:
+                print("Invalid selection '%s' - must be a number." % voice_index)
+            except IndexError:
+                print("Invalid selection '%s'." % voice_index)
+
+    # If --text is specified, use that, otherwise interactively ask for text
+    if args.text:
+        text = args.text
+    else:
+        text = input("Write some text for your voice to say: ")
+
+    # Get the settings used for this voice
     voice_settings = voice.settings
 
+    # If any --setting arguments are specified, apply them
+    if args.setting:
+        for setting in args.setting:
+            name, val = setting.split("=")
+            name.lower()
+
+            try:
+                float(val)
+            except ValueError:
+                pass
+
+            voice_settings[name] = val
+
+    # Print out the settings to be used to generate this TTS
     for setting in voice_settings:
         value = voice_settings[setting]
 
@@ -50,6 +113,7 @@ if __name__ == "__main__":
 
     print("Generating TTS...")
 
+    # Do the thing!
     voice \
-        .generate(message, voice_settings=voice_settings) \
-        .save("output/%s_%s" % (voice.name, time.time()))
+        .generate(text, voice_settings=voice_settings) \
+        .save("%s/%s_%s" % (args.output, voice.name, time.time()))
