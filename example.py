@@ -35,8 +35,8 @@ if __name__ == "__main__":
     parser.add_argument("-l", "--voices",
         help="List all voices assocaited with your ElevenLabs account",
         action="store_true")
-    parser.add_argument("-s", "--setting",
-        help="Sets a voice setting. Use the format setting=value",
+    parser.add_argument("-p", "--parameter",
+        help="Change a voice parameter. Use the format setting=value",
         action="append")
 
     args = parser.parse_args()
@@ -92,10 +92,10 @@ if __name__ == "__main__":
     # Get the settings used for this voice
     voice_settings = voice.settings
 
-    # If any --setting arguments are specified, apply them
-    if args.setting:
-        for setting in args.setting:
-            name, val = setting.split("=")
+    # If any --parameter arguments are specified, apply them
+    if args.parameter:
+        for parameter in args.parameter:
+            name, val = parameter.split("=")
             name.lower()
 
             try:
