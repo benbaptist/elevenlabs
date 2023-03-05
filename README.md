@@ -14,11 +14,10 @@ Here's an example of how you can use elevenlabs to retrieve data from the API:
 ```
 from elevenlabs import ElevenLabs
 
-eleven = ElevenLabs(
-    api_key
-)
+eleven = ElevenLabs(api_key)
 
 voice = eleven.voices.list[0]
+
 audio_file = voice.generate("Hey buddy!")
 audio_file.save("my_first_tts")
 ```

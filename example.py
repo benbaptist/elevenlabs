@@ -17,9 +17,7 @@ See https://api.elevenlabs.io/docs for details.
 """
 
 if __name__ == "__main__":
-    el = ElevenLabs(
-        api_key
-    )
+    elevenlabs = ElevenLabs(api_key)
 
     parser = argparse.ArgumentParser(
         prog = "elevenlabs example",
@@ -44,7 +42,7 @@ if __name__ == "__main__":
     # If --voices is specified, list all the voices avaialbe
     if args.voices:
         print("Voices: ")
-        for voice in el.voices.list:
+        for voice in elevenlabs.voices.list:
             print("- %s" % voice.name)
 
         sys.exit(0)
@@ -57,7 +55,7 @@ if __name__ == "__main__":
     if args.voice:
         voice = None
 
-        for _voice in el.voices.list:
+        for _voice in elevenlabs.voices.list:
             if _voice.name.lower() == args.voice.lower():
                 voice = _voice
                 break
@@ -70,14 +68,14 @@ if __name__ == "__main__":
 
         voice = None
         while not voice:
-            for i, _voice in enumerate(el.voices.list):
+            for i, _voice in enumerate(elevenlabs.voices.list):
                 print("[%s] %s" % (i, _voice.name))
 
             voice_index = input("Pick the voice you'd like: ")
 
             try:
                 voice_index = int(voice_index)
-                voice = el.voices.list[voice_index]
+                voice = elevenlabs.voices.list[voice_index]
             except ValueError:
                 print("Invalid selection '%s' - must be a number." % voice_index)
             except IndexError:
