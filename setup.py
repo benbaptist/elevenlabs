@@ -6,6 +6,7 @@ setup(
     name='elevenlabs',
     version='0.1',
     description='A Python library for integrating with ElevenLabs.io\'s API',
+    long_description=open("README.rst", "r").read(),
     author='Ben Baptist',
     author_email='me@benbaptist.com',
     url='https://github.com/benbaptist/elevenlabs',

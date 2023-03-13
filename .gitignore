@@ -3,3 +3,6 @@ config.py
 __pycache__
 dist/
 *.egg-info/
+
+# No sense in keeping two READMEs, I suppose
+README.rst
