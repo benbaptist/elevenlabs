@@ -12,6 +12,8 @@ To install elevenlabs, run:
 pip install --upgrade elevenlabs
 ```
 
+This library requires no special dependencies, and is written in pure Python.
+
 # Basic Usage #
 Here's an example of how you can use elevenlabs to retrieve data from the API:
 
