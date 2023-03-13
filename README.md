@@ -1,4 +1,8 @@
 # elevenlabs #
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/elevenlabs?style=for-the-badge)](https://pypi.org/project/elevenlabs/)
+![PyPI - Status](https://img.shields.io/pypi/status/elevenlabs?style=for-the-badge)
+[![PyPI](https://img.shields.io/pypi/v/elevenlabs?style=for-the-badge)](https://pypi.org/project/elevenlabs/)
+
 elevenlabs is an unofficial Python library that provides an easy-to-use interface for elevenlabs.io' API. With this library, you can easily integrate with the API to generate voices.
 
 # Installation #
@@ -16,10 +20,14 @@ from elevenlabs import ElevenLabs
 
 eleven = ElevenLabs(api_key)
 
-voice = eleven.voices.list[0]
+# Get a Voice object, by name or UUID
+voice = eleven.voices["Arnold"]
 
-audio_file = voice.generate("Hey buddy!")
-audio_file.save("my_first_tts")
+# Generate the TTS
+audio = voice.generate("Hey buddy! It's a beautiful day.")
+
+# Save the TTS to a file named 'my_first_tts' in the working directory
+audio.save("my_first_tts")
 ```
 
 See example.py for more. For more advanced usage, refer to the (currently non-existent!) documentation and the API reference.

@@ -1,6 +1,10 @@
 from elevenlabs import ElevenLabs
 
-from config import api_key
+# Try to read the api_key from config.py
+try:
+    from config import api_key
+except ImportError:
+    api_key = None
 
 import os
 import time
@@ -17,8 +21,7 @@ See https://api.elevenlabs.io/docs for details.
 """
 
 if __name__ == "__main__":
-    elevenlabs = ElevenLabs(api_key)
-
+    # Parse cmd arguments with argparse
     parser = argparse.ArgumentParser(
         prog = "elevenlabs example",
         description = "An example of the elevenlabs library")
@@ -29,15 +32,33 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--text",
         help="Text to convert to speech")
     parser.add_argument("-v", "--voice",
-        help="Specify the name of a voice on your ElevenLabs account")
+        help="Specify the name or UUID of a voice on your ElevenLabs account")
     parser.add_argument("-l", "--voices",
         help="List all voices assocaited with your ElevenLabs account",
         action="store_true")
     parser.add_argument("-p", "--parameter",
         help="Change a voice parameter. Use the format setting=value",
         action="append")
+    parser.add_argument("-k", "--api-key",
+        help="Specify an API key to use with ElevenLabs",
+        dest="api_key")
 
     args = parser.parse_args()
+
+    # If --api-key is specified, use this instead of relying on config.py
+    if args.api_key:
+        api_key = args.api_key
+
+    # If no API key is specified or imported from config.py, fail
+    if not api_key:
+        print("Error: No API key was specified. Either use --api-key, or \
+        create a file named 'config.py' and set the var api_key containing\
+        the API key.")
+
+        sys.exit(1)
+
+    # Create an ElevenLabs instance
+    elevenlabs = ElevenLabs(api_key)
 
     # If --voices is specified, list all the voices avaialbe
     if args.voices:
@@ -53,14 +74,9 @@ if __name__ == "__main__":
 
     # If --voice is specified, use that, or interactively ask for a voice
     if args.voice:
-        voice = None
-
-        for _voice in elevenlabs.voices.list:
-            if _voice.name.lower() == args.voice.lower():
-                voice = _voice
-                break
-
-        if not voice:
+        try:
+            voice = elevenlabs.voices[args.voice]
+        except KeyError:
             print("Could not find voice '%s'" % args.voice)
             sys.exit(1)
     else:
@@ -71,15 +87,17 @@ if __name__ == "__main__":
             for i, _voice in enumerate(elevenlabs.voices.list):
                 print("[%s] %s" % (i, _voice.name))
 
-            voice_index = input("Pick the voice you'd like: ")
+            voice_identifier = input("Pick the voice you'd like: ")
 
             try:
-                voice_index = int(voice_index)
-                voice = elevenlabs.voices.list[voice_index]
+                voice_identifier = int(voice_identifier)
             except ValueError:
-                print("Invalid selection '%s' - must be a number." % voice_index)
+                pass
+
+            try:
+                voice = elevenlabs.voices[voice_identifier]
             except IndexError:
-                print("Invalid selection '%s'." % voice_index)
+                print("Invalid selection '%s'." % voice_identifier)
 
     # If --text is specified, use that, otherwise interactively ask for text
     if args.text:
