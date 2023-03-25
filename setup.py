@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='elevenlabs',
-    version='0.1',
+    version='0.1.1',
     description='A Python library for integrating with ElevenLabs.io\'s API',
     long_description=open("README.rst", "r").read(),
     author='Ben Baptist',

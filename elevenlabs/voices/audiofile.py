@@ -12,7 +12,7 @@ class AudioFile:
     def save(self, filename):
         """ Saves the resulting audio file to *filename*, with the
         appropriate file extension automatically appended to the end of
-        the path. """
+        the path. Returns the actual filename & path. """
 
         content_type = self._request.headers["content-type"]
         extension = mimetypes.guess_extension(content_type)
@@ -25,3 +25,5 @@ class AudioFile:
             f.write(
                 self._file.read()
             )
+
+        return filename
