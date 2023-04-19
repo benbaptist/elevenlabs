@@ -1,7 +1,7 @@
 # elevenlabs #
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/elevenlabs?style=for-the-badge)](https://pypi.org/project/elevenlabs/)
-![PyPI - Status](https://img.shields.io/pypi/status/elevenlabs?style=for-the-badge)
-[![PyPI](https://img.shields.io/pypi/v/elevenlabs?style=for-the-badge)](https://pypi.org/project/elevenlabs/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/benbaptist-elevenlabs?style=for-the-badge)](https://pypi.org/project/benbaptist-elevenlabs/)
+![PyPI - Status](https://img.shields.io/pypi/status/benbaptist-elevenlabs?style=for-the-badge)
+[![PyPI](https://img.shields.io/pypi/v/benbaptist-elevenlabs?style=for-the-badge)](https://pypi.org/project/benbaptist-elevenlabs/)
 
 NOTE: The official elevenlabs library is now available! Check it out [here at this link](https://github.com/elevenlabs/elevenlabs-python). The PyPi package `elevenlabs` will now point to their official library moving forward. Just in case you need this library still, I went ahead and re-uploaded it to [benbaptist-elevenlabs](https://pypi.org/project/benbaptist-elevenlabs/0.1.1/).
 
