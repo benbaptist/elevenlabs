@@ -3,9 +3,9 @@ from setuptools import setup, find_packages
 # Not gonna lie; I used ChatGPT to generate this setup.py. Nifty.
 
 setup(
-    name='elevenlabs',
+    name='benbaptist-elevenlabs',
     version='0.1.1',
-    description='A Python library for integrating with ElevenLabs.io\'s API',
+    description='An unofficial Python library for integrating with ElevenLabs.io\'s API',
     long_description=open("README.rst", "r").read(),
     author='Ben Baptist',
     author_email='me@benbaptist.com',

@@ -3,13 +3,15 @@
 ![PyPI - Status](https://img.shields.io/pypi/status/elevenlabs?style=for-the-badge)
 [![PyPI](https://img.shields.io/pypi/v/elevenlabs?style=for-the-badge)](https://pypi.org/project/elevenlabs/)
 
+NOTE: The official elevenlabs library is now available! Check it out [here at this link](https://github.com/elevenlabs/elevenlabs-python). The PyPi package `elevenlabs` will now point to their official library moving forward. Just in case you need this library still, I went ahead and re-uploaded it to [benbaptist-elevenlabs](https://pypi.org/project/benbaptist-elevenlabs/0.1.1/).
+
 elevenlabs is an unofficial Python library that provides an easy-to-use interface for elevenlabs.io' API. With this library, you can easily integrate with the API to generate voices.
 
 # Installation #
-To install elevenlabs, run:
+To install this unofficial elevenlabs library, run:
 
 ```
-pip install --upgrade elevenlabs
+pip install --upgrade benbaptist-elevenlabs
 ```
 
 This library requires no special dependencies, and is written in pure Python.
