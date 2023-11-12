@@ -43,6 +43,11 @@ if __name__ == "__main__":
         help="Specify an API key to use with ElevenLabs",
         dest="api_key")
 
+    parser.add_argument("-f", "--output-format",
+        help="Output format from ElevenLabs",
+        dest="output_format",
+        default="mp3_44100_128")
+
     args = parser.parse_args()
 
     # If --api-key is specified, use this instead of relying on config.py
@@ -131,5 +136,5 @@ if __name__ == "__main__":
 
     # Do the thing!
     voice \
-        .generate(text, voice_settings=voice_settings) \
+        .generate(text, voice_settings=voice_settings, output_format=args.output_format) \
         .save("%s/%s_%s" % (args.output, voice.name, time.time()))

@@ -47,7 +47,7 @@ class Voice:
 
         return request.json()
 
-    def generate(self, text, voice_settings=None):
+    def generate(self, text, voice_settings=None, output_format="mp3_44100_128"):
         """ Generate a text-to-speech with the provided text and settings """
         if not voice_settings:
             voice_settings = self.settings
@@ -57,7 +57,8 @@ class Voice:
             "text-to-speech/%s" % self.id,
             {
                 "text": text,
-                "voice_settings": voice_settings
+                "voice_settings": voice_settings,
+                "output_format": output_format
             }
         )
 
